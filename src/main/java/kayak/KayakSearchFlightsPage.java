@@ -4,11 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.pagefactory.DefaultElementLocator;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
-import org.openqa.selenium.support.pagefactory.ElementLocator;
 
 public class KayakSearchFlightsPage {
 
@@ -42,26 +39,6 @@ public class KayakSearchFlightsPage {
 
     public static WebDriver getDriver() {
 	return driver;
-    }
-
-    public static String getKayakurl() {
-	return kayakURL;
-    }
-
-    public String getOrigin() {
-	return origin;
-    }
-
-    public String getDestination() {
-	return destination;
-    }
-
-    public String getDepartDate() {
-	return departDate;
-    }
-
-    public String getReturnDate() {
-	return returnDate;
     }
 
     public KayakSearchFlightsPage from(String origin) {
@@ -115,7 +92,6 @@ public class KayakSearchFlightsPage {
 	if (s.equals("true")) {
 	    expediaCheckBox.click();
 	}
-	
 	
 	// Find the boutton input element by its id
 	WebElement element = driver.findElement(By.id("fdimgbutton"));

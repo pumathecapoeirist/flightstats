@@ -3,6 +3,7 @@
   <groupId>org.puma</groupId>
   <artifactId>flightstats</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
   <name>flightstats</name>
   <description>description to complete</description>
   <dependencies>

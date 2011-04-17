@@ -1,6 +1,5 @@
 package kayak;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,12 +8,13 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
 public class KayakResultsFlightsPage {
-    
-    public final int DRIVER_TIME_WAIT = 30; // 30 seconds 
+
+    public final int DRIVER_TIME_WAIT = 30; // 30 seconds
 
     private KayakSearchFlightsPage searchOrigin;
 
-    // This element appears when the search is over
+    // This element appears when the Ajax request for search is over
+    @SuppressWarnings("unused")
     @FindBy(id = "shareresultstd")
     private WebElement shareResults;
 
@@ -25,10 +25,11 @@ public class KayakResultsFlightsPage {
     public KayakResultsFlightsPage(KayakSearchFlightsPage searchOriginPage) {
 	this.searchOrigin = searchOriginPage;
 	WebDriver driver = KayakSearchFlightsPage.getDriver();
-	ElementLocatorFactory finder = new AjaxElementLocatorFactory(driver, DRIVER_TIME_WAIT);
+	ElementLocatorFactory finder = new AjaxElementLocatorFactory(driver,
+		DRIVER_TIME_WAIT);
 	PageFactory.initElements(finder, this);
     }
-    
+
     /**
      * Check the lowestPrice of the page
      */
