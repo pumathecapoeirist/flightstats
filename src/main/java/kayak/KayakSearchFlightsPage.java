@@ -87,7 +87,7 @@ public class KayakSearchFlightsPage {
 	// Enter something to search for
 	returnDateWeb.sendKeys(returnDate);
 	
-	//Uncked Expedia box that is checked by default
+	//Uncheck Expedia box if checked (the box is check by default)
 	String s = expediaCheckBox.getAttribute("checked");
 	if (s.equals("true")) {
 	    expediaCheckBox.click();
