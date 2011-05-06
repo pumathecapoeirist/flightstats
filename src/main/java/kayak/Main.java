@@ -1,5 +1,8 @@
 package kayak;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
@@ -9,22 +12,27 @@ import com.gargoylesoftware.htmlunit.BrowserVersion;
 
 public class Main {
     public static void main(String[] args) {
-    	
-    //Creating a headless web driver
-    DesiredCapabilities caps = DesiredCapabilities.firefox(); 
-    caps.setJavascriptEnabled(true); 
-    WebDriver driver = new HtmlUnitDriver(caps); 
-    	
-	//Submit trip request
+
+	// Disable verbose error messages ?
+	Logger logger = Logger.getLogger("");
+	logger.setLevel(Level.SEVERE);
+
+	// Creating a headless web driver
+	DesiredCapabilities caps = DesiredCapabilities.firefox();
+	caps.setJavascriptEnabled(true);
+	WebDriver driver = new HtmlUnitDriver(caps);
+
+	// Submit trip request
 	KayakSearchFlightsPage searchPage = new KayakSearchFlightsPage(driver);
-	searchPage.from("YUL").departDate("04/06/2011");
-	searchPage.to("NYC").returnDate("05/07/2011");
+	searchPage.from("YUL").departDate("06/01/2011");
+	searchPage.to("PAR").returnDate("07/01/2011");
 	searchPage.launchSearch();
-	
-	//Get lowest price
-	KayakResultsFlightsPage resultPage = new KayakResultsFlightsPage(searchPage);
+
+	// Get lowest price
+	KayakResultsFlightsPage resultPage = new KayakResultsFlightsPage(
+		searchPage);
 	resultPage.getLowerPrice();
-	
+
 	// Close the browser
 	driver.quit();
     }
