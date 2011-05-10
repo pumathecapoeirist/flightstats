@@ -2,13 +2,10 @@ package kayak;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
 
 public class Main {
     public static void main(String[] args) {
