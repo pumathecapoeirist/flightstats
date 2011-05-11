@@ -27,9 +27,10 @@ public class Main {
 	SearchFlightPage searchPage = new KayakSearchFlightsPage(driver);
 	searchPage.from("YUL").departDate("06/01/2011");
 	searchPage.to("PAR").returnDate("07/01/2011");
-	
-	PageService kayakservice = new PageService(searchPage,
-		new KayakResultsFlightsPage(driver));
+	ResultFlightsPage resultPage = new KayakResultsFlightsPage(driver);
+
+	// Submit request and retrieve results
+	PageService kayakservice = new PageService(searchPage, resultPage);
 	kayakservice.lauch();
 
 	// Close the browser
