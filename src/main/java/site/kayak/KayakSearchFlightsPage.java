@@ -1,17 +1,21 @@
-package kayak;
+package site.kayak;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
+import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
-public class KayakSearchFlightsPage {
+import site.generic.SearchFlightPage;
 
-    private static WebDriver driver;
-    private static final String kayakURL = "http://www.kayak.com";
-    
+public class KayakSearchFlightsPage extends SearchFlightPage {
+
+    private static final int DRIVER_TIME_WAIT = 30;
+    private WebDriver driver;
+    private static final String url = "http://www.kayak.com";
     
     @FindBy(id = "origin")
     private WebElement originWeb;
@@ -32,13 +36,22 @@ public class KayakSearchFlightsPage {
 
     @FindBy(id = "cbEXPEDIA_DFDCMP2")
     WebElement expediaCheckBox;
+    
+    @FindBy(id = "prefer_nonstop")
+    WebElement preferNonstopCheckBox;
+    
+    @FindBy(id = "roundtrip")
+    WebElement roundTripRadio;
 
     public KayakSearchFlightsPage(WebDriver driver) {
-	KayakSearchFlightsPage.driver = driver;
+	ElementLocatorFactory finder = new AjaxElementLocatorFactory(driver,
+		DRIVER_TIME_WAIT);
+	PageFactory.initElements(finder, this);
+	this.driver = driver;
     }
 
-    public static WebDriver getDriver() {
-	return driver;
+    public WebDriver getDriver() {
+	return this.driver;
     }
 
     public KayakSearchFlightsPage from(String origin) {
@@ -60,7 +73,8 @@ public class KayakSearchFlightsPage {
 	this.returnDate = returnDate;
 	return this;
     }
-
+    
+    @Override
     public void launchSearch() {
 
 	if (origin == null || destination == null || departDate == null
@@ -73,7 +87,7 @@ public class KayakSearchFlightsPage {
 	PageFactory.initElements(elmntLocFac, this);
 
 	// And now use this to visit the site
-	driver.get(kayakURL);
+	driver.get(url);
 
 	// Enter something to search for
 	originWeb.sendKeys(origin);
@@ -87,10 +101,22 @@ public class KayakSearchFlightsPage {
 	// Enter something to search for
 	returnDateWeb.sendKeys(returnDate);
 	
-	//Uncheck Expedia box if checked (the box is check by default)
+	//Uncheck Expedia checkbox if checked (the box is check by default)
 	String s = expediaCheckBox.getAttribute("checked");
-	if (s.equals("true")) {
+	if (s != null && s.equals("true")) {
 	    expediaCheckBox.click();
+	}
+	
+	//Check Round Trip box if not checked (the box is check by default)
+	s = roundTripRadio.getAttribute("selected");
+	if (s != null && s.equals("false")) {
+	    roundTripRadio.click();
+	}
+	
+	//Uncheck NonstopCheckBox if checked (the box is check by default)
+	s = preferNonstopCheckBox.getAttribute("checked");
+	if (s != null && s.equals("true")) {
+	    preferNonstopCheckBox.click();
 	}
 	
 	// Find the boutton input element by its id
