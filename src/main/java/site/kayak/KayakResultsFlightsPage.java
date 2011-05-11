@@ -1,8 +1,8 @@
 package site.kayak;
 
+import java.math.BigDecimal;
 import java.util.Vector;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -12,8 +12,6 @@ import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 import site.generic.ResultFlightsPage;
 
 public class KayakResultsFlightsPage extends ResultFlightsPage {
-
-    public final int DRIVER_TIME_WAIT = 30; // 30 seconds
 
     // This element appears when the Ajax request for search is over
     @SuppressWarnings("unused")
@@ -31,19 +29,19 @@ public class KayakResultsFlightsPage extends ResultFlightsPage {
     // Lowest price among the more than one stop flights
     @FindBy(id = "abp2")
     private WebElement lowestPriceMoreStops;
-
-    public KayakResultsFlightsPage(WebDriver driver) {
-	ElementLocatorFactory finder = new AjaxElementLocatorFactory(driver,
-		DRIVER_TIME_WAIT);
-	PageFactory.initElements(finder, this);
+    
+    public KayakResultsFlightsPage(){
     }
 
     /**
      * Check the lowestPrice of the page
      */
     @Override
-    public int getLowerPrice() {
-
+    public BigDecimal getLowerPrice() {
+	ElementLocatorFactory finder = new AjaxElementLocatorFactory(driver,
+		DRIVER_TIME_WAIT);
+	PageFactory.initElements(finder, this);
+	
 	Vector<String> lowPriceCandidate = new Vector<String>(3);
 
 	// Add lowestPrice after removing the $ character
@@ -51,12 +49,11 @@ public class KayakResultsFlightsPage extends ResultFlightsPage {
 	lowPriceCandidate.add(lowestPriceOneStop.getText().substring(1));
 	lowPriceCandidate.add(lowestPriceMoreStops.getText().substring(1));
 
-	int lowestPrice = Integer.MAX_VALUE;
-
+	BigDecimal lowestPrice = new BigDecimal(Integer.MAX_VALUE);
+	
 	for (String candidate : lowPriceCandidate) {
-	    int lowestPriceCandidate = Integer.parseInt(candidate);
-	    lowestPrice = lowestPrice < lowestPriceCandidate ? lowestPrice
-		    : lowestPriceCandidate;
+	    BigDecimal lowestPriceCandidate = new BigDecimal(candidate);
+	    lowestPrice = lowestPrice.min(lowestPriceCandidate);
 	}
 
 	System.out.println("Page lowest price is: " + lowestPrice);

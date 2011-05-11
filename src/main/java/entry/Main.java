@@ -14,7 +14,8 @@ import site.kayak.KayakSearchFlightsPage;
 public class Main {
     public static void main(String[] args) {
 
-	// Disable verbose error messages ?
+	// Disable verbose error messages at warning level.
+	// TODO: Implement a correct reporting system using the Logger
 	Logger logger = Logger.getLogger("");
 	logger.setLevel(Level.SEVERE);
 
@@ -24,10 +25,12 @@ public class Main {
 	WebDriver driver = new HtmlUnitDriver(caps);
 
 	// Prepare trip request
-	SearchFlightPage searchPage = new KayakSearchFlightsPage(driver);
+	SearchFlightPage searchPage = new KayakSearchFlightsPage();
+	searchPage.setDriver(driver);
 	searchPage.from("YUL").departDate("06/01/2011");
-	searchPage.to("PAR").returnDate("07/01/2011");
-	ResultFlightsPage resultPage = new KayakResultsFlightsPage(driver);
+	searchPage.to("PAR").returnDate("07/10/2011");
+	ResultFlightsPage resultPage = new KayakResultsFlightsPage();
+	resultPage.setDriver(driver);
 
 	// Submit request and retrieve results
 	PageService kayakservice = new PageService(searchPage, resultPage);

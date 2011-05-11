@@ -1,11 +1,7 @@
 package entry;
 
-import org.openqa.selenium.WebDriver;
-
 import site.generic.ResultFlightsPage;
 import site.generic.SearchFlightPage;
-import site.kayak.KayakResultsFlightsPage;
-import site.kayak.KayakSearchFlightsPage;
 
 public class PageService {
     

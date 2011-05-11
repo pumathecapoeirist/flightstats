@@ -2,20 +2,49 @@ package site.generic;
 
 import org.openqa.selenium.WebDriver;
 
-import site.kayak.KayakSearchFlightsPage;
+public class SearchFlightPage {
+    
+    protected static final int DRIVER_TIME_WAIT = 30;
+    protected WebDriver driver;
+    
+    protected String origin;
+    
+    protected String destination;
+    
+    protected String departDate;
+    
+    protected String returnDate;
+    
+    public void launchSearch() {
+    }
+    
 
-public abstract class SearchFlightPage {
+    public void setDriver(WebDriver driver) {
+	this.driver = driver;
+    }
 
-    public abstract void launchSearch();
+    public WebDriver getDriver() {
+	return this.driver;
+    }
 
-    public abstract WebDriver getDriver();
+    public SearchFlightPage from(String origin) {
+	this.origin = origin;
+	return this;
+    }
 
-    public abstract KayakSearchFlightsPage from(String origin);
+    public SearchFlightPage to(String destination) {
+	this.destination = destination;
+	return this;
+    }
 
-    public abstract KayakSearchFlightsPage to(String destination);
+    public SearchFlightPage departDate(String departDate) {
+	this.departDate = departDate;
+	return this;
+    }
 
-    public abstract KayakSearchFlightsPage departDate(String departDate);
-
-    public abstract KayakSearchFlightsPage returnDate(String returnDate);
+    public SearchFlightPage returnDate(String returnDate) {
+	this.returnDate = returnDate;
+	return this;
+    }
 
 }

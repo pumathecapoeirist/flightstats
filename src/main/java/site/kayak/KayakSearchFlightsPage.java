@@ -1,7 +1,6 @@
 package site.kayak;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -13,26 +12,19 @@ import site.generic.SearchFlightPage;
 
 public class KayakSearchFlightsPage extends SearchFlightPage {
 
-    private static final int DRIVER_TIME_WAIT = 30;
-    private WebDriver driver;
     private static final String url = "http://www.kayak.com";
     
     @FindBy(id = "origin")
     private WebElement originWeb;
-    private String origin;
-    
 
     @FindBy(id = "destination")
     private WebElement destinationWeb;
-    private String destination;
     
     @FindBy(id = "depart_date")
     private WebElement departDateWeb;
-    private String departDate;
     
     @FindBy(id = "return_date")
     private WebElement returnDateWeb;
-    private String returnDate;
 
     @FindBy(id = "cbEXPEDIA_DFDCMP2")
     WebElement expediaCheckBox;
@@ -43,39 +35,14 @@ public class KayakSearchFlightsPage extends SearchFlightPage {
     @FindBy(id = "roundtrip")
     WebElement roundTripRadio;
 
-    public KayakSearchFlightsPage(WebDriver driver) {
-	ElementLocatorFactory finder = new AjaxElementLocatorFactory(driver,
-		DRIVER_TIME_WAIT);
-	PageFactory.initElements(finder, this);
-	this.driver = driver;
-    }
-
-    public WebDriver getDriver() {
-	return this.driver;
-    }
-
-    public KayakSearchFlightsPage from(String origin) {
-	this.origin = origin;
-	return this;
-    }
-
-    public KayakSearchFlightsPage to(String destination) {
-	this.destination = destination;
-	return this;
-    }
-
-    public KayakSearchFlightsPage departDate(String departDate) {
-	this.departDate = departDate;
-	return this;
-    }
-
-    public KayakSearchFlightsPage returnDate(String returnDate) {
-	this.returnDate = returnDate;
-	return this;
+    public KayakSearchFlightsPage() {
     }
     
     @Override
     public void launchSearch() {
+	ElementLocatorFactory finder = new AjaxElementLocatorFactory(driver,
+		DRIVER_TIME_WAIT);
+	PageFactory.initElements(finder, this);
 
 	if (origin == null || destination == null || departDate == null
 		|| returnDate == null) {

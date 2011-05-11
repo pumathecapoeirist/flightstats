@@ -1,7 +1,24 @@
 package site.generic;
 
-public abstract class ResultFlightsPage {
+import java.math.BigDecimal;
+
+import org.openqa.selenium.WebDriver;
+
+public class ResultFlightsPage {
     
-    public abstract int getLowerPrice() ;
+    protected static final int DRIVER_TIME_WAIT = 30;
+    protected WebDriver driver;
+
+    public void setDriver(WebDriver driver) {
+	this.driver = driver;
+    }
+
+    public WebDriver getDriver() {
+	return this.driver;
+    }
+    
+    public BigDecimal getLowerPrice() {
+	return null;
+    }
 
 }
