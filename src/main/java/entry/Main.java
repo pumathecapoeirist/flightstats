@@ -32,9 +32,11 @@ public class Main {
 	ResultFlightsPage resultPage = new KayakResultsFlightsPage();
 	resultPage.setDriver(driver);
 
-	// Submit request and retrieve results
-	PageService kayakservice = new PageService(searchPage, resultPage);
-	kayakservice.lauch();
+	//Submit request
+	searchPage.launchSearch();
+
+	// Get lowest price
+	resultPage.getLowerPrice();
 
 	// Close the browser
 	driver.quit();
