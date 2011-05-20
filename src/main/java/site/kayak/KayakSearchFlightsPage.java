@@ -27,13 +27,13 @@ public class KayakSearchFlightsPage extends SearchFlightPage {
     private WebElement returnDateWeb;
 
     @FindBy(id = "cbEXPEDIA_DFDCMP2")
-    WebElement expediaCheckBox;
+    private WebElement expediaCheckBox;
     
     @FindBy(id = "prefer_nonstop")
-    WebElement preferNonstopCheckBox;
+    private WebElement preferNonstopCheckBox;
     
     @FindBy(id = "roundtrip")
-    WebElement roundTripRadio;
+    private WebElement roundTripRadio;
 
     public KayakSearchFlightsPage() {
     }
@@ -57,15 +57,19 @@ public class KayakSearchFlightsPage extends SearchFlightPage {
 	driver.get(url);
 
 	// Enter something to search for
+	originWeb.clear();
 	originWeb.sendKeys(origin);
 	
 	// Enter something to search for
+	destinationWeb.clear();
 	destinationWeb.sendKeys(destination);
 
 	// Enter something to search for
+	departDateWeb.clear();
 	departDateWeb.sendKeys(departDate);
 	
 	// Enter something to search for
+	returnDateWeb.clear();
 	returnDateWeb.sendKeys(returnDate);
 	
 	//Uncheck Expedia checkbox if checked (the box is check by default)

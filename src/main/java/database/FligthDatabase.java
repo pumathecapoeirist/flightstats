@@ -8,7 +8,7 @@ public class FligthDatabase {
 
     public FligthDatabase() {
 	isInit = false;
-
+	trips = new TripGenerator();
     }
 
     public void open() {

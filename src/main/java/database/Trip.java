@@ -1,22 +1,30 @@
 package database;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class Trip {
-    public City origin;
     public City destination;
-    public Date departDate;
-    public Date returnDate;
-    public Date dateOfSearch;
+    public City origin;
+    public Calendar departDate;
+    public Calendar returnDate;
+    public Calendar dateOfSearch;
     
-    public Trip(City origin, City destination, Date departDate,
-	    Date returnDate, Date dateOfSearch) {
+    public Trip(City origin, City destination, Calendar departDate,
+	    Calendar returnDate, Calendar dateOfSearch) {
 	super();
 	this.origin = origin;
 	this.destination = destination;
 	this.departDate = departDate;
 	this.returnDate = returnDate;
 	this.dateOfSearch = dateOfSearch;
+    }
+
+    public String toString() {
+	String string = origin.name + "-" + destination.name + ", "
+		+ departDate.getTime() + "-"
+		+ returnDate.getTime() + ", "
+		+ dateOfSearch.getTime() ;
+	return string;
     }
 
 }

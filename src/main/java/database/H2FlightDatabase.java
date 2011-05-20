@@ -9,7 +9,7 @@ public class H2FlightDatabase extends FligthDatabase {
     private JdbcConnectionPool cp;
 
     public H2FlightDatabase() {
-	
+	super();
     }
 
     @Override

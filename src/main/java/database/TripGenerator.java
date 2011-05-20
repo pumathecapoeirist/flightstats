@@ -2,16 +2,16 @@ package database;
 
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Vector;
 
 import database.City.CityType;
 
 public class TripGenerator {
 
-    private static Vector<City> primaryCities;
-    private static Vector<City> secondaryCities;
-    private Vector<Trip> trips;
+    private static Vector<City> primaryCities = new Vector<City>();
+    private static Vector<City> secondaryCities = new Vector<City>();
+    private static Vector<Trip> trips = new Vector<Trip>();
 
     /**
      * If departDateSpan = 30, at max the depart date searched will be done on
@@ -32,7 +32,11 @@ public class TripGenerator {
     private int minTripDateSpan;
 
     public TripGenerator() {
+	departDateSpan = 90;
+	maxTripDateSpan = 15;
+	minTripDateSpan = 10;
 	setCities();
+	setPrimaryTrips();
     }
 
     private boolean setPrimaryTrips() {
@@ -55,13 +59,36 @@ public class TripGenerator {
     }
 
     private Collection<Trip> generateTrips(City origin, City destination) {
-	
-	// TODO: Use maxTripDateSpan, etc.
-	Calendar departDate = Calendar.getInstance();
-	Calendar returnDate ;
-	Calendar dateOfSearch;
-	Collection<Trip> c;
-	c.add(new Trip(origin,destination,departDate,returnDate,dateOfSearch));
+	// Max trip depart date is
+	GregorianCalendar maxTripDepartDate = new GregorianCalendar();
+	maxTripDepartDate.add(Calendar.DATE, departDateSpan);
+
+	// Max trip return date is
+	GregorianCalendar maxTripReturnDate = new GregorianCalendar();
+	maxTripReturnDate.add(Calendar.DATE, maxTripDateSpan);
+
+	Collection<Trip> c = new Vector<Trip>();
+
+	// Loop 1 fix the depart date (within the 90 days span) and sweep the
+	// return date
+	GregorianCalendar returnDate = new GregorianCalendar();
+	Calendar dateOfSearch = new GregorianCalendar();
+	for (GregorianCalendar departDate = new GregorianCalendar(); departDate
+		.compareTo(maxTripDepartDate) < 0; departDate.add(
+		Calendar.DATE, 1)) {
+
+	    //System.out.println("TEST1\n");
+
+	    // Loop2 sweep the return date within trip span
+	    for (returnDate.add(Calendar.DATE, minTripDateSpan); returnDate
+		    .compareTo(maxTripReturnDate) < 0; returnDate.add(
+		    Calendar.DATE, 1)) {
+		Trip trip = new Trip(origin, destination, departDate,
+			returnDate, dateOfSearch);
+		System.out.println(trip);
+		c.add(trip);
+	    }
+	}
 	return c;
     }
 
@@ -76,30 +103,22 @@ public class TripGenerator {
 		8139));
 	primaryCities.add(new City("New York City", "NYC", CityType.PRIMARY,
 		6219));
-	secondaryCities
-		.add(new City("Dubai", "DBX", CityType.SECONDARY, 6120));
-	primaryCities.add(new City("Rome ", "ROM", CityType.PRIMARY, 6033));
-	secondaryCities
-		.add(new City("Seoul", "SEL", CityType.SECONDARY, 4920));
-	primaryCities
-		.add(new City("Barcelona", "BCN", CityType.PRIMARY, 4695));
-	primaryCities.add(new City("Dublin ", "DUB", CityType.PRIMARY, 4469));
-	secondaryCities.add(new City("Bahrain", "BAH", CityType.SECONDARY,
-		4418));
+	secondaryCities.add(new City("Dubai", "DBX", CityType.SECONDARY, 6120));
+	primaryCities.add(new City("Rome", "ROM", CityType.PRIMARY, 6033));
+	secondaryCities.add(new City("Seoul", "SEL", CityType.SECONDARY, 4920));
+	primaryCities.add(new City("Barcelona", "BCN", CityType.PRIMARY, 4695));
+	primaryCities.add(new City("Dublin", "DUB", CityType.PRIMARY, 4469));
 	secondaryCities.add(new City("Shanghai", "SHA", CityType.SECONDARY,
 		4315));
 	primaryCities.add(new City("Toronto", "YTO", CityType.PRIMARY, 4160));
-	secondaryCities.add(new City("Kuala Lumpur ", "KUL",
-		CityType.SECONDARY, 4125));
-	secondaryCities.add(new City("Istanbul ", "IST", CityType.SECONDARY,
+	secondaryCities.add(new City("Istanbul", "IST", CityType.SECONDARY,
 		3994));
 	primaryCities.add(new City("Madrid", "MAD", CityType.PRIMARY, 3921));
-	primaryCities
-		.add(new City("Amsterdam", "AMS", CityType.PRIMARY, 3901));
+	primaryCities.add(new City("Amsterdam", "AMS", CityType.PRIMARY, 3901));
 	secondaryCities
 		.add(new City("Prague", "PRG", CityType.SECONDARY, 3702));
 	primaryCities.add(new City("Moscow", "MOW", CityType.PRIMARY, 3695));
-	secondaryCities.add(new City("Beijing ", "PEK", CityType.SECONDARY,
+	secondaryCities.add(new City("Beijing", "PEK", CityType.SECONDARY,
 		3593));
 	secondaryCities
 		.add(new City("Vienna", "VIE", CityType.SECONDARY, 3339));
@@ -107,45 +126,6 @@ public class TripGenerator {
 		.add(new City("Taipei", "TPE", CityType.SECONDARY, 3280));
 	secondaryCities.add(new City("St.Petersburg ", "PIE",
 		CityType.SECONDARY, 3200));
-	primaryCities.add(new City("Cancun", "CUN", CityType.PRIMARY, 3074));
-	secondaryCities
-		.add(new City("Macau", "MFM", CityType.SECONDARY, 3072));
-	primaryCities.add(new City("Venice ", "CVCE", CityType.PRIMARY, 2927));
-	secondaryCities
-		.add(new City("Warsaw", "WAW", CityType.SECONDARY, 2925));
-	primaryCities.add(new City("Mexico", "MEX", CityType.PRIMARY, 2823));
-	primaryCities.add(new City("Los Angeles", "LAX", CityType.PRIMARY,
-		2513));
-	primaryCities.add(new City("Berlin", "BER", CityType.PRIMARY, 2309));
-	primaryCities.add(new City("Rio De Janeiro", "RIO", CityType.PRIMARY,
-		2185));
-	secondaryCities.add(new City("Budapest", "BUD", CityType.SECONDARY,
-		2043));
-	primaryCities.add(new City("San Francisco", "SFO", CityType.PRIMARY,
-		1993));
-	primaryCities.add(new City("Miami", "MIA", CityType.PRIMARY, 1972));
-	primaryCities.add(new City("Munich ", "MUC", CityType.PRIMARY, 1925));
-	secondaryCities.add(new City("Shenzen ", "SZX", CityType.SECONDARY,
-		1904));
-	primaryCities.add(new City("Milan", "MIL", CityType.PRIMARY, 1902));
-	primaryCities.add(new City("Sydney", "SYD", CityType.PRIMARY, 1852));
-	primaryCities.add(new City("Oahu/Honolulu", "HNL", CityType.PRIMARY,
-		1733));
-	secondaryCities
-		.add(new City("Cairo", "CAI", CityType.SECONDARY, 1720));
-	primaryCities.add(new City("Florence", "FLR", CityType.PRIMARY, 1715));
-	primaryCities.add(new City("Lisbon", "LIS", CityType.PRIMARY, 1715));
-	primaryCities
-		.add(new City("Las Vegas", "LAS", CityType.PRIMARY, 1647));
-	secondaryCities.add(new City("Marrakesh", "RAK", CityType.SECONDARY,
-		1500));
-	secondaryCities
-		.add(new City("Tokyo", "TYO", CityType.SECONDARY, 1467));
-	secondaryCities.add(new City("Edinburgh (GB)", "EDI",
-		CityType.SECONDARY, 1338));
-	primaryCities.add(new City("Manchester (GB)", "MAN", CityType.PRIMARY,
-		912));
-	primaryCities.add(new City("Montreal", "YUL", CityType.PRIMARY, 679));
     }
 
 }
