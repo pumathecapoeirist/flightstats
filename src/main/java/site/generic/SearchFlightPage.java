@@ -2,6 +2,8 @@ package site.generic;
 
 import org.openqa.selenium.WebDriver;
 
+import database.Trip;
+
 public class SearchFlightPage {
     
     protected static final int DRIVER_TIME_WAIT = 30;
@@ -45,6 +47,13 @@ public class SearchFlightPage {
     public SearchFlightPage returnDate(String returnDate) {
 	this.returnDate = returnDate;
 	return this;
+    }
+    
+    public void set(Trip trip){
+	this.origin = trip.getOrigin().name;
+	this.destination = trip.getDestination().name;
+	this.departDate = trip.getDepartDateString();
+	this.returnDate = trip.getReturnDateString();
     }
 
 }

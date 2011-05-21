@@ -19,12 +19,41 @@ public class Trip {
 	this.dateOfSearch = dateOfSearch;
     }
 
+    public City getDestination() {
+        return destination;
+    }
+
+    public City getOrigin() {
+        return origin;
+    }
+
+    public Calendar getDateOfSearch() {
+        return dateOfSearch;
+    }
+
+    public void setDateOfSearch(Calendar dateOfSearch) {
+        this.dateOfSearch = dateOfSearch;
+    }
+
     public String toString() {
 	String string = origin.name + "-" + destination.name + ", "
 		+ departDate.getTime() + "-"
 		+ returnDate.getTime() + ", "
 		+ dateOfSearch.getTime() ;
 	return string;
+    }
+
+    public String getDepartDateString() {
+	return departDate.get(Calendar.MONTH) + "/"
+		+ departDate.get(Calendar.DATE) + "/"
+		+ departDate.get(Calendar.YEAR);
+    }
+    
+
+    public String getReturnDateString() {
+	return returnDate.get(Calendar.MONTH) + "/"
+		+ returnDate.get(Calendar.DATE) + "/"
+		+ returnDate.get(Calendar.YEAR);
     }
 
 }
