@@ -46,27 +46,23 @@ public class Trip {
     }
 
     public String getDepartDateString() {
-	GregorianCalendar c = new GregorianCalendar();
-	c.setTime(departDate);
-	return c.get(Calendar.MONTH) + "/"
-		+ c.get(Calendar.DATE) + "/"
-		+ c.get(Calendar.YEAR);
+	return convertDateToString(departDate);
     }
     
 
     public String getReturnDateString() {
-	GregorianCalendar c = new GregorianCalendar();
-	c.setTime(returnDate);
-	return c.get(Calendar.MONTH) + "/"
-		+ c.get(Calendar.DATE) + "/"
-		+ c.get(Calendar.YEAR);
+	return convertDateToString(returnDate);
     }
 
     public String getDateOfSearchString() {
+	return convertDateToString(dateOfSearch);
+    }
+    
+    private String convertDateToString(Date d){
 	GregorianCalendar c = new GregorianCalendar();
-	c.setTime(dateOfSearch);
-	return c.get(Calendar.MONTH) + "/"
+	c.setTime(d);
+	return ((c.get(Calendar.MONTH)+1) + "/"
 		+ c.get(Calendar.DATE) + "/"
-		+ c.get(Calendar.YEAR);
+		+ c.get(Calendar.YEAR));
     }
 }

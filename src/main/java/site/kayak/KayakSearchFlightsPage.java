@@ -27,9 +27,6 @@ public class KayakSearchFlightsPage extends SearchFlightPage {
     @FindBy(id = "return_date")
     private WebElement returnDateWeb;
 
-    @FindBy(id = "cbEXPEDIA_DFDCMP2")
-    private RenderedWebElement expediaCheckBox;
-    
     @FindBy(id = "prefer_nonstop")
     private WebElement preferNonstopCheckBox;
     
@@ -73,14 +70,8 @@ public class KayakSearchFlightsPage extends SearchFlightPage {
 	returnDateWeb.clear();
 	returnDateWeb.sendKeys(returnDate);
 	
-	//Uncheck Expedia checkbox if checked (the box is check by default)
-	String s = expediaCheckBox.getAttribute("checked");
-	if (s != null && expediaCheckBox.isDisplayed() && s.equals("true")) {
-	    expediaCheckBox.click();
-	}
-	
 	//Check Round Trip box if not checked (the box is check by default)
-	s = roundTripRadio.getAttribute("selected");
+	String s = roundTripRadio.getAttribute("selected");
 	if (s != null && s.equals("false")) {
 	    roundTripRadio.click();
 	}
@@ -90,8 +81,24 @@ public class KayakSearchFlightsPage extends SearchFlightPage {
 	if (s != null && s.equals("true")) {
 	    preferNonstopCheckBox.click();
 	}
-	
-	// Find the boutton input element by its id
+
+	//TODO remove this awful line
+	long end = System.currentTimeMillis() + 500;
+
+	while (System.currentTimeMillis() < end) ;
+
+	WebElement expediaCheckBox2 = driver
+		.findElement(By.id("cbEXPEDIA_DFDCMP2"));
+	s = expediaCheckBox2.getAttribute("checked");
+	s = expediaCheckBox2.getTagName();
+	s = expediaCheckBox2.getValue();
+	s = expediaCheckBox2.getText();
+	expediaCheckBox2.click();
+	if (s != null && s.equals("checked")) {
+	    expediaCheckBox2.click();
+	}
+
+	// Find the button input element by its id
 	WebElement element = driver.findElement(By.id("fdimgbutton"));
 	
 	// Now submit the form. WebDriver will find the form for us from the

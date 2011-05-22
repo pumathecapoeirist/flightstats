@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import database.Trip;
@@ -44,7 +45,7 @@ public class SearchFactorySingleton {
 	// Creating a headless web driver
 	DesiredCapabilities caps = DesiredCapabilities.firefox();
 	caps.setJavascriptEnabled(true);
-	// WebDriver driver = new HtmlUnitDriver(caps);
+	//WebDriver driver = new HtmlUnitDriver(caps);
 	WebDriver driver = new FirefoxDriver();
 
 	flightPagePairs.add(kayakpages);
@@ -85,7 +86,7 @@ public class SearchFactorySingleton {
 	for (int i = 0; i < flightPagePairLength(); i++) {
 	    FlightPagePair f = it.next();
 	    f.resultPage.getDriver().close();
-	    f.searchPage.getDriver().close();
+	    //f.searchPage.getDriver().close();
 	}
     }
 }

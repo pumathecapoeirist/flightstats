@@ -106,6 +106,7 @@ public class TripGenerator {
 	maxTripDepartDate.add(Calendar.DATE, departDateSpan);
 
 	// Max trip return date is
+	GregorianCalendar minTripReturnDate = new GregorianCalendar();
 	GregorianCalendar maxTripReturnDate = new GregorianCalendar();
 	maxTripReturnDate.add(Calendar.DATE, maxTripDateSpan);
 
@@ -115,18 +116,25 @@ public class TripGenerator {
 	// return date
 	GregorianCalendar returnDate = new GregorianCalendar();
 	GregorianCalendar dateOfSearch = new GregorianCalendar();
+
+	System.out.println("start");
 	for (GregorianCalendar departDate = new GregorianCalendar(); departDate
 		.compareTo(maxTripDepartDate) < 0; departDate.add(
 		Calendar.DATE, 1)) {
 	    System.out.println("departDate"+departDate.getTime());
+	    
 	    // Loop2 sweep the return date within trip span
-	    for (returnDate.setTime(departDate.getTime()); returnDate
+	    minTripReturnDate.setTime(departDate.getTime());
+	    minTripReturnDate.add(Calendar.DATE, minTripDateSpan);
+	    
+	    for (returnDate.setTime(minTripReturnDate.getTime()); returnDate
 		    .compareTo(maxTripReturnDate) < 0; returnDate.add(
 		    Calendar.DATE, 1)) {
 		Trip trip = new Trip(origin, destination, departDate.getTime(),
 			returnDate.getTime(), dateOfSearch.getTime());
 		System.out.println(trip);
 		c.add(trip);
+		
 	    }
 	}
 	return c;
