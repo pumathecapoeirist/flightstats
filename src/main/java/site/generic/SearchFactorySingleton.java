@@ -73,7 +73,9 @@ public class SearchFactorySingleton {
 
     public void launch(Trip trip) {
 	FlightPagePair flightPagePair = it.next();
+	
 	flightPagePair.searchPage.set(trip);
+	
 	//Submit request
 	flightPagePair.searchPage.launchSearch();
 
@@ -86,7 +88,6 @@ public class SearchFactorySingleton {
 	for (int i = 0; i < flightPagePairLength(); i++) {
 	    FlightPagePair f = it.next();
 	    f.resultPage.getDriver().close();
-	    //f.searchPage.getDriver().close();
 	}
     }
 }

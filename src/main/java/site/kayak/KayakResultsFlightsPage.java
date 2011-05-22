@@ -31,6 +31,7 @@ public class KayakResultsFlightsPage extends ResultFlightsPage {
     private WebElement lowestPriceMoreStops;
     
     public KayakResultsFlightsPage(){
+	super();
     }
 
     /**

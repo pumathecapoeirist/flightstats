@@ -31,13 +31,11 @@ public class BingSearchFlightsPage extends SearchFlightPage {
     
 
     public BingSearchFlightsPage() {
+	super();
     }
     
     @Override
     public void launchSearch() {
-	ElementLocatorFactory finder = new AjaxElementLocatorFactory(driver,
-		DRIVER_TIME_WAIT);
-	PageFactory.initElements(finder, this);
 
 	if (origin == null || destination == null || departDate == null
 		|| returnDate == null) {

@@ -23,6 +23,7 @@ public class BingResultsFlightsPage  extends ResultFlightsPage{
 
     
     public BingResultsFlightsPage(){
+	super();
     }
 
     /**

@@ -6,7 +6,6 @@ import database.Trip;
 
 public class SearchFlightPage {
     
-    protected static final int DRIVER_TIME_WAIT = 30;
     protected WebDriver driver;
     
     protected String origin;
