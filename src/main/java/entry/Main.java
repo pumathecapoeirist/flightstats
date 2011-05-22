@@ -9,10 +9,12 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import database.FlightDatabaseFactory;
 import database.FligthDatabase;
+import database.Trip;
 
 import site.bingtravel.BingResultsFlightsPage;
 import site.bingtravel.BingSearchFlightsPage;
 import site.generic.ResultFlightsPage;
+import site.generic.SearchFactorySingleton;
 import site.generic.SearchFlightPage;
 import site.kayak.KayakResultsFlightsPage;
 import site.kayak.KayakSearchFlightsPage;
@@ -27,29 +29,14 @@ public class Main {
 
 	
 	//Initializing database
-	//FligthDatabase database = FlightDatabaseFactory.makeH2FlightDatabase();
+	FligthDatabase fligthDatabase = FlightDatabaseFactory.makeH2FlightDatabase();
 	
-	// Creating a headless web driver
-	DesiredCapabilities caps = DesiredCapabilities.firefox();
-	caps.setJavascriptEnabled(true);
-//	WebDriver driver = new HtmlUnitDriver(caps);
-	WebDriver driver = new FirefoxDriver();
-
-	// Prepare trip request
-	SearchFlightPage searchPage = new BingSearchFlightsPage();
-	searchPage.setDriver(driver);
-	searchPage.from("YUL").departDate("06/01/2011");
-	searchPage.to("PAR").returnDate("07/10/2011");
-	ResultFlightsPage resultPage = new BingResultsFlightsPage();
-	resultPage.setDriver(driver);
-
-	//Submit request
-	searchPage.launchSearch();
-
-	// Get lowest price
-	resultPage.getLowerPrice();
-
+	Trip trip= fligthDatabase.getTrip(10);
+	System.out.println("Trip:"+trip);
+	SearchFactorySingleton searchFactory = SearchFactorySingleton.getInstance();
+	searchFactory.launch(trip);
+	
 	// Close the browser
-	driver.quit();
+	searchFactory.closeAllWebPages();
     }
 }

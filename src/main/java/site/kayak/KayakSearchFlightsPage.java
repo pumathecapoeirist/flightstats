@@ -1,6 +1,7 @@
 package site.kayak;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.RenderedWebElement;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -27,7 +28,7 @@ public class KayakSearchFlightsPage extends SearchFlightPage {
     private WebElement returnDateWeb;
 
     @FindBy(id = "cbEXPEDIA_DFDCMP2")
-    private WebElement expediaCheckBox;
+    private RenderedWebElement expediaCheckBox;
     
     @FindBy(id = "prefer_nonstop")
     private WebElement preferNonstopCheckBox;
@@ -74,7 +75,7 @@ public class KayakSearchFlightsPage extends SearchFlightPage {
 	
 	//Uncheck Expedia checkbox if checked (the box is check by default)
 	String s = expediaCheckBox.getAttribute("checked");
-	if (s != null && s.equals("true")) {
+	if (s != null && expediaCheckBox.isDisplayed() && s.equals("true")) {
 	    expediaCheckBox.click();
 	}
 	

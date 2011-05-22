@@ -1,5 +1,11 @@
 package site.generic;
 
+import java.util.Iterator;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
 import database.Trip;
 import site.bingtravel.*;
 import site.kayak.KayakResultsFlightsPage;
@@ -26,17 +32,31 @@ public class SearchFactorySingleton {
     }
 
     private static CircularLinkedList<FlightPagePair> flightPagePairs;
-    private CircularLinkedList.CircularListIterator<FlightPagePair> it;
+    private Iterator<FlightPagePair> it;
 
     private SearchFactorySingleton() {
 	FlightPagePair kayakpages = new FlightPagePair(
 		new KayakSearchFlightsPage(), new KayakResultsFlightsPage());
 	FlightPagePair bingpages = new FlightPagePair(
 		new BingSearchFlightsPage(), new BingResultsFlightsPage());
-	flightPagePairs = new CircularLinkedList<SearchFactorySingleton.FlightPagePair>();
-	flightPagePairs.add(bingpages);
+	flightPagePairs = new CircularLinkedList<FlightPagePair>();
+
+	// Creating a headless web driver
+	DesiredCapabilities caps = DesiredCapabilities.firefox();
+	caps.setJavascriptEnabled(true);
+	// WebDriver driver = new HtmlUnitDriver(caps);
+	WebDriver driver = new FirefoxDriver();
+
 	flightPagePairs.add(kayakpages);
-	it =  flightPagePairs.iterator();
+	//flightPagePairs.add(bingpages);
+
+	it = flightPagePairs.iterator();
+
+	for (int i = 0; i < flightPagePairLength(); i++) {
+	    FlightPagePair f = it.next();
+	    f.resultPage.setDriver(driver);
+	    f.searchPage.setDriver(driver);
+	}
     }
 
     public static SearchFactorySingleton getInstance() {
@@ -45,13 +65,27 @@ public class SearchFactorySingleton {
 	}
 	return instance;
     }
-    
-    public int flightPagePairLength(){
+
+    public int flightPagePairLength() {
 	return flightPagePairs.size();
     }
-    
-    public void launch(Trip trip){
+
+    public void launch(Trip trip) {
 	FlightPagePair flightPagePair = it.next();
 	flightPagePair.searchPage.set(trip);
+	//Submit request
+	flightPagePair.searchPage.launchSearch();
+
+	// Get lowest price
+	flightPagePair.resultPage.getLowerPrice();
+    }
+
+    public void closeAllWebPages() {
+
+	for (int i = 0; i < flightPagePairLength(); i++) {
+	    FlightPagePair f = it.next();
+	    f.resultPage.getDriver().close();
+	    f.searchPage.getDriver().close();
+	}
     }
 }

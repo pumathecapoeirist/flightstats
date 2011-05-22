@@ -50,8 +50,8 @@ public class SearchFlightPage {
     }
     
     public void set(Trip trip){
-	this.origin = trip.getOrigin().name;
-	this.destination = trip.getDestination().name;
+	this.origin = trip.getOrigin().code;
+	this.destination = trip.getDestination().code;
 	this.departDate = trip.getDepartDateString();
 	this.returnDate = trip.getReturnDateString();
     }
