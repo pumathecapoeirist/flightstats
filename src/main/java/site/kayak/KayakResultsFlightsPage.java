@@ -37,7 +37,7 @@ public class KayakResultsFlightsPage extends ResultFlightsPage {
      * Check the lowestPrice of the page
      */
     @Override
-    public BigDecimal getLowerPrice() {
+    public int getLowerPrice() {
 	ElementLocatorFactory finder = new AjaxElementLocatorFactory(driver,
 		DRIVER_TIME_WAIT);
 	PageFactory.initElements(finder, this);
@@ -57,6 +57,6 @@ public class KayakResultsFlightsPage extends ResultFlightsPage {
 	}
 
 	System.out.println("Page lowest price is: " + lowestPrice);
-	return lowestPrice;
+	return lowestPrice.intValue();
     }
 }

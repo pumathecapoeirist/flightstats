@@ -2,22 +2,12 @@ package entry;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import database.FlightDatabaseFactory;
 import database.FligthDatabase;
 import database.Trip;
 
-import site.bingtravel.BingResultsFlightsPage;
-import site.bingtravel.BingSearchFlightsPage;
-import site.generic.ResultFlightsPage;
 import site.generic.SearchFactorySingleton;
-import site.generic.SearchFlightPage;
-import site.kayak.KayakResultsFlightsPage;
-import site.kayak.KayakSearchFlightsPage;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,15 +17,20 @@ public class Main {
 	Logger logger = Logger.getLogger("");
 	logger.setLevel(Level.SEVERE);
 
-	
-	//Initializing database
-	FligthDatabase fligthDatabase = FlightDatabaseFactory.makeH2FlightDatabase();
-	
-	Trip trip= fligthDatabase.getTrip(10);
-	System.out.println("Trip:"+trip);
-	SearchFactorySingleton searchFactory = SearchFactorySingleton.getInstance();
-	searchFactory.launch(trip);
-	
+	// Initializing database
+	FligthDatabase fligthDatabase = FlightDatabaseFactory
+		.makeH2FlightDatabase();
+	fligthDatabase.open();
+
+	int index = 10;
+	Trip trip = fligthDatabase.getTripAt(index);
+	System.out.println("Trip:" + trip);
+	SearchFactorySingleton searchFactory = SearchFactorySingleton
+		.getInstance();
+	/*Convert to a short integer */
+	short minPrice = (short) searchFactory.launch(trip);
+
+	trip.setMinPrice(minPrice);
 	// Close the browser
 	searchFactory.closeAllWebPages();
     }

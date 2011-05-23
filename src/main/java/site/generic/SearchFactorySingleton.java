@@ -3,7 +3,6 @@ package site.generic;
 import java.util.Iterator;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -42,14 +41,14 @@ public class SearchFactorySingleton {
 		new BingSearchFlightsPage(), new BingResultsFlightsPage());
 	flightPagePairs = new CircularLinkedList<FlightPagePair>();
 
-	// Creating a headless web driver
+	// Creating a headless web driver with HtmlUnitDriver
 	DesiredCapabilities caps = DesiredCapabilities.firefox();
 	caps.setJavascriptEnabled(true);
-	//WebDriver driver = new HtmlUnitDriver(caps);
-	WebDriver driver = new FirefoxDriver();
+	WebDriver driver = new HtmlUnitDriver(caps);
+	//WebDriver driver = new FirefoxDriver();
 
-	flightPagePairs.add(kayakpages);
-	//flightPagePairs.add(bingpages);
+	//flightPagePairs.add(kayakpages);
+	flightPagePairs.add(bingpages);
 
 	it = flightPagePairs.iterator();
 
@@ -71,14 +70,15 @@ public class SearchFactorySingleton {
 	return flightPagePairs.size();
     }
 
-    public void launch(Trip trip) {
+    public int launch(Trip trip) {
 	FlightPagePair flightPagePair = it.next();
 	flightPagePair.searchPage.set(trip);
 	//Submit request
 	flightPagePair.searchPage.launchSearch();
 
 	// Get lowest price
-	flightPagePair.resultPage.getLowerPrice();
+	return flightPagePair.resultPage.getLowerPrice();
+	
     }
 
     public void closeAllWebPages() {

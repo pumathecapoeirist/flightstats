@@ -82,19 +82,21 @@ public class KayakSearchFlightsPage extends SearchFlightPage {
 	    preferNonstopCheckBox.click();
 	}
 
-	//TODO remove this awful line
-	long end = System.currentTimeMillis() + 500;
+	WebElement travelers = driver.findElement(By.id("travelers"));
+	travelers.click();
 
-	while (System.currentTimeMillis() < end) ;
+	WebElement compareALL = driver.findElement(By.id("compareToCheckboxes"));
+	System.out.println(compareALL.getTagName());
+	System.out.println(compareALL.getText());
+	compareALL.click();
 
-	WebElement expediaCheckBox2 = driver
-		.findElement(By.id("cbEXPEDIA_DFDCMP2"));
+	WebElement expediaCheckBox2 = driver.findElement(By
+		.xpath("//label[@for='cbEXPEDIA_DFDCMP2']"));
 	s = expediaCheckBox2.getAttribute("checked");
 	s = expediaCheckBox2.getTagName();
-	s = expediaCheckBox2.getValue();
 	s = expediaCheckBox2.getText();
 	expediaCheckBox2.click();
-	if (s != null && s.equals("checked")) {
+	if (s != null && s.equals("true")) {
 	    expediaCheckBox2.click();
 	}
 

@@ -8,7 +8,7 @@ import java.util.Vector;
 import database.City.CityType;
 
 /**
- * Genearates all combinations of trips
+ * Genearates all necessary combinations of trips
  * 
  * @author puma
  *
@@ -79,6 +79,7 @@ public class TripGenerator {
 
 	setCities();
 	setPrimaryTrips();
+	setSecondaryTrips();
     }
 
     private boolean setPrimaryTrips() {
@@ -95,9 +96,22 @@ public class TripGenerator {
 		}
 	    }
 	}
-
 	return success;
+    }
+    
+    private boolean setSecondaryTrips() {
+	boolean success = false;
+	// Cannot compute primary trips if primary cities are not defined
+	if (primaryCities == null || secondaryCities == null) {
+	    return success;
+	}
 
+	for (City origin : primaryCities) {
+	    for (City destination : secondaryCities) {
+		    trips.addAll(generateTrips(origin, destination));
+	    }
+	}
+	return success;
     }
 
     private Collection<Trip> generateTrips(City origin, City destination) {

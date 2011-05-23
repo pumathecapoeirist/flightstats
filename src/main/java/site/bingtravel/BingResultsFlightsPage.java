@@ -29,7 +29,7 @@ public class BingResultsFlightsPage  extends ResultFlightsPage{
      * Check the lowestPrice of the page
      */
     @Override
-    public BigDecimal getLowerPrice() {
+    public int getLowerPrice() {
 	ElementLocatorFactory finder = new AjaxElementLocatorFactory(driver,
 		DRIVER_TIME_WAIT);
 	PageFactory.initElements(finder, this);
@@ -38,6 +38,6 @@ public class BingResultsFlightsPage  extends ResultFlightsPage{
 	BigDecimal lowestPrice = new BigDecimal(lowestPriceNonStop.getText()
 		.substring(1));
 	System.out.println("Page lowest price is: " + lowestPrice);
-	return lowestPrice;
+	return lowestPrice.intValue();
     }
 }

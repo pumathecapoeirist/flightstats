@@ -10,7 +10,8 @@ public class Trip {
     public Date departDate;
     public Date returnDate;
     public Date dateOfSearch;
-    
+    private short minPrice;
+
     public Trip(City origin, City destination, Date departDate,
 	    Date returnDate, Date dateOfSearch) {
 	super();
@@ -19,6 +20,15 @@ public class Trip {
 	this.departDate = departDate;
 	this.returnDate = returnDate;
 	this.dateOfSearch = dateOfSearch;
+	this.minPrice = Short.MAX_VALUE;
+    }
+    
+    public short getMinPrice() {
+	return minPrice;
+    }
+    
+    public void setMinPrice(short minPrice) {
+	this.minPrice = minPrice;
     }
 
     public City getDestination() {
