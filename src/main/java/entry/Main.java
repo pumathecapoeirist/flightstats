@@ -21,7 +21,7 @@ public class Main {
 	//Initializing database
 	FligthDatabase fligthDatabase = FlightDatabaseFactory.makeH2FlightDatabase();
 	
-	Trip trip= fligthDatabase.getTrip(10);
+	Trip trip= fligthDatabase.getTrip(300);
 	System.out.println("Trip:"+trip);
 	SearchFactorySingleton searchFactory = SearchFactorySingleton.getInstance();
 	searchFactory.launch(trip);

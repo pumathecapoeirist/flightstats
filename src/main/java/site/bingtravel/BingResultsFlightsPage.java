@@ -8,6 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
+import database.Trip;
+
 import site.generic.ResultFlightsPage;
 
 public class BingResultsFlightsPage  extends ResultFlightsPage{
@@ -30,7 +32,7 @@ public class BingResultsFlightsPage  extends ResultFlightsPage{
      * Check the lowestPrice of the page
      */
     @Override
-    public BigDecimal getLowerPrice() {
+    public BigDecimal getLowerPrice(Trip trip) {
 	ElementLocatorFactory finder = new AjaxElementLocatorFactory(driver,
 		DRIVER_TIME_WAIT);
 	PageFactory.initElements(finder, this);

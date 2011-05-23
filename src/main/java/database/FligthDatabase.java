@@ -14,7 +14,7 @@ public class FligthDatabase {
 	
 	TripGenerator tripGenerator = new TripGenerator(90,15,10);
 	trips = tripGenerator.getTrips();
-	System.out.println("Number of trips" + trips.size());
+	System.out.println("Number of trips :" + trips.size());
     }
 
     public void open() {

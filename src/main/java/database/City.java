@@ -12,7 +12,6 @@ public class City {
     public int numberVisitor;
 
     public City(String name, String code, CityType type, int numberVisitor) {
-	super();
 	this.name = name;
 	this.code = code;
 	this.type = type;

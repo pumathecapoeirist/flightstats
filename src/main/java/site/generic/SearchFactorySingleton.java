@@ -1,8 +1,11 @@
 package site.generic;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -47,7 +50,7 @@ public class SearchFactorySingleton {
 	caps.setJavascriptEnabled(true);
 	//WebDriver driver = new HtmlUnitDriver(caps);
 	WebDriver driver = new FirefoxDriver();
-
+	
 	flightPagePairs.add(kayakpages);
 	//flightPagePairs.add(bingpages);
 
@@ -75,12 +78,13 @@ public class SearchFactorySingleton {
 	FlightPagePair flightPagePair = it.next();
 	
 	flightPagePair.searchPage.set(trip);
-	
-	//Submit request
-	flightPagePair.searchPage.launchSearch();
+
+	// 
+	//flightPagePair.searchPage.launchSearch();
 
 	// Get lowest price
-	flightPagePair.resultPage.getLowerPrice();
+	BigDecimal l = flightPagePair.resultPage.getLowerPrice(trip);
+	System.out.println(l);
     }
 
     public void closeAllWebPages() {

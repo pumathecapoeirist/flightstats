@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 
 import org.openqa.selenium.WebDriver;
 
-public class ResultFlightsPage {
+import database.Trip;
+
+public abstract class ResultFlightsPage {
     
     protected static final int DRIVER_TIME_WAIT = 30;
     protected WebDriver driver;
@@ -17,8 +19,6 @@ public class ResultFlightsPage {
 	return this.driver;
     }
     
-    public BigDecimal getLowerPrice() {
-	return null;
-    }
+    public abstract BigDecimal getLowerPrice(Trip trip);
 
 }

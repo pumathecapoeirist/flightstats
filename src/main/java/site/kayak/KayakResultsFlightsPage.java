@@ -9,6 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
+import database.Trip;
+
 import site.generic.ResultFlightsPage;
 
 public class KayakResultsFlightsPage extends ResultFlightsPage {
@@ -38,7 +40,18 @@ public class KayakResultsFlightsPage extends ResultFlightsPage {
      * Check the lowestPrice of the page
      */
     @Override
-    public BigDecimal getLowerPrice() {
+    public BigDecimal getLowerPrice( Trip trip) {
+
+	System.out.println("Submitting page");
+	
+	String destination = trip.destination.code;
+	String origin = trip.origin.code;
+	String departDate = "06-06-2011";
+	String returnDate = "07-07-2011";
+	String query = "http://www.kayak.com/#flights/" + origin + "-"
+		+ destination + "/" + "2011-06-06" + "/" + "2011-07-07";
+
+	driver.get(query);
 	ElementLocatorFactory finder = new AjaxElementLocatorFactory(driver,
 		DRIVER_TIME_WAIT);
 	PageFactory.initElements(finder, this);
