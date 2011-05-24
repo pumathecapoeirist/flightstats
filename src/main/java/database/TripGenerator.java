@@ -138,7 +138,6 @@ public class TripGenerator {
 	GregorianCalendar departDate = new GregorianCalendar();
 	GregorianCalendar returnDate = new GregorianCalendar();
 	GregorianCalendar dateOfSearch = new GregorianCalendar();
-	System.out.println("start trips generation");
 	for (departDate.add(Calendar.DATE, 1); departDate
 		.compareTo(maxTripDepartDate) < 0; departDate.add(
 		Calendar.DATE, 1)) {
