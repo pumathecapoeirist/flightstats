@@ -1,5 +1,7 @@
 package site.generic;
 
+import java.util.Date;
+
 import org.openqa.selenium.WebDriver;
 
 import database.Trip;
@@ -8,13 +10,9 @@ public class SearchFlightPage {
     
     protected static final int DRIVER_TIME_WAIT = 30;
     protected WebDriver driver;
-    
     protected String origin;
-    
     protected String destination;
-    
     protected String departDate;
-    
     protected String returnDate;
     
     public void launchSearch() {
@@ -54,6 +52,7 @@ public class SearchFlightPage {
 	this.destination = trip.getDestination().code;
 	this.departDate = trip.getDepartDateString();
 	this.returnDate = trip.getReturnDateString();
+	trip.dateOfSearch = new Date();
     }
 
 }
