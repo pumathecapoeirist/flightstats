@@ -16,7 +16,14 @@ public class Main {
 	// TODO: Implement a correct reporting system using the Logger
 	Logger logger = Logger.getLogger("");
 	logger.setLevel(Level.SEVERE);
+	Exec execute = new Exec();
+	execute.start();
 
+    }
+}
+
+class Exec extends Thread{
+    public void run(){
 	// Initializing database
 	FligthDatabase fligthDatabase = FlightDatabaseFactory
 		.makeH2FlightDatabase();
@@ -35,8 +42,11 @@ public class Main {
 
 	    // Persist the value found
 	    fligthDatabase.persistTrip(trip);
-	    long end = System.currentTimeMillis()+1000;
-	    while(System.currentTimeMillis()<end);
+	    try {
+		Thread.sleep(3000);
+	    } catch (InterruptedException e) {
+		e.printStackTrace();
+	    }
 	}
 	// Close the browser
 	searchFactory.closeAllWebPages();

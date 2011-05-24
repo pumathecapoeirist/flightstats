@@ -45,8 +45,8 @@ public class SearchFactorySingleton {
 	// Creating a headless web driver with HtmlUnitDriver
 	DesiredCapabilities caps = DesiredCapabilities.firefox();
 	caps.setJavascriptEnabled(true);
-	//WebDriver driver = new HtmlUnitDriver(caps);
-	WebDriver driver = new FirefoxDriver();
+	WebDriver driver = new HtmlUnitDriver(caps);
+	//WebDriver driver = new FirefoxDriver();
 
 	//flightPagePairs.add(kayakpages);
 	flightPagePairs.add(bingpages);
