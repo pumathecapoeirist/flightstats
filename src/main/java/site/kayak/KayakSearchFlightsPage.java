@@ -1,7 +1,6 @@
 package site.kayak;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.RenderedWebElement;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -89,9 +88,9 @@ public class KayakSearchFlightsPage extends SearchFlightPage {
 	System.out.println(compareALL.getTagName());
 	System.out.println(compareALL.getText());
 	compareALL.click();
-
+	
 	WebElement expediaCheckBox2 = driver.findElement(By
-		.xpath("//label[@for='cbEXPEDIA_DFDCMP2']"));
+		.id("siteEXPEDIA_DFDCMP2"));
 	s = expediaCheckBox2.getAttribute("checked");
 	s = expediaCheckBox2.getTagName();
 	s = expediaCheckBox2.getText();

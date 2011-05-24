@@ -9,6 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
+import database.Trip;
+
 import site.generic.ResultFlightsPage;
 
 public class KayakResultsFlightsPage extends ResultFlightsPage {
@@ -31,6 +33,7 @@ public class KayakResultsFlightsPage extends ResultFlightsPage {
     private WebElement lowestPriceMoreStops;
     
     public KayakResultsFlightsPage(){
+	super();
     }
 
     /**

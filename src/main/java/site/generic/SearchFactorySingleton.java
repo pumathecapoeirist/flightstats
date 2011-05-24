@@ -45,8 +45,8 @@ public class SearchFactorySingleton {
 	// Creating a headless web driver with HtmlUnitDriver
 	DesiredCapabilities caps = DesiredCapabilities.firefox();
 	caps.setJavascriptEnabled(true);
-	WebDriver driver = new HtmlUnitDriver(caps);
-	//WebDriver driver = new FirefoxDriver();
+	//WebDriver driver = new HtmlUnitDriver(caps);
+	WebDriver driver = new FirefoxDriver();
 
 	//flightPagePairs.add(kayakpages);
 	flightPagePairs.add(bingpages);
@@ -79,7 +79,6 @@ public class SearchFactorySingleton {
 
 	// Get lowest price
 	return flightPagePair.resultPage.getLowerPrice();
-	
     }
 
     public void closeAllWebPages() {
@@ -87,7 +86,6 @@ public class SearchFactorySingleton {
 	for (int i = 0; i < flightPagePairLength(); i++) {
 	    FlightPagePair f = it.next();
 	    f.resultPage.getDriver().close();
-	    //f.searchPage.getDriver().close();
 	}
     }
 }

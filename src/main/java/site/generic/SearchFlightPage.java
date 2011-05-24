@@ -1,8 +1,5 @@
 package site.generic;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 import org.openqa.selenium.WebDriver;
 
 import database.Trip;
@@ -57,7 +54,6 @@ public class SearchFlightPage {
 	this.destination = trip.getDestination().code;
 	this.departDate = trip.getDepartDateString();
 	this.returnDate = trip.getReturnDateString();
-	trip.dateOfSearch = new Date();
     }
 
 }

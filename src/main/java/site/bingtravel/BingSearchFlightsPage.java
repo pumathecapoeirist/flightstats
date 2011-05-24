@@ -1,18 +1,22 @@
 package site.bingtravel;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
-import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
+
+import database.Trip;
 
 import site.generic.SearchFlightPage;
 
 public class BingSearchFlightsPage extends SearchFlightPage {
 
-    private static final String url = "http://www.bing.com/travel/";
+    protected WebDriver driver;
+    protected String origin;
+    protected String destination;
+    protected String departDate;
+    protected String returnDate;
+    private String url = "http://www.bing.com/travel/";
     
     @FindBy(id = "orig1Text")
     private WebElement originWeb;
@@ -31,22 +35,25 @@ public class BingSearchFlightsPage extends SearchFlightPage {
     
 
     public BingSearchFlightsPage() {
+	super();
+    }
+    
+    @Override
+    public void set(Trip trip){
+	//this.origin = trip.getOrigin().getCode();
+	//this.destination = trip.getDestination().getCode();
+	this.departDate = trip.getDepartDateString();
+	this.returnDate = trip.getReturnDateString();
     }
     
     @Override
     public void launchSearch() {
-	ElementLocatorFactory finder = new AjaxElementLocatorFactory(driver,
-		DRIVER_TIME_WAIT);
-	PageFactory.initElements(finder, this);
 
 	if (origin == null || destination == null || departDate == null
 		|| returnDate == null) {
 	    System.out.println(" YOU NEED TO INITIALIZE THE FLIGHT FIRST! ");
 	}
 	
-	DefaultElementLocatorFactory elmntLocFac = new DefaultElementLocatorFactory(
-		driver);
-	PageFactory.initElements(elmntLocFac, this);
 
 	// And now use this to visit the site
 	driver.get(url);
@@ -85,4 +92,5 @@ public class BingSearchFlightsPage extends SearchFlightPage {
 	System.out.println("Submitting page");
 
     }
+
 }
