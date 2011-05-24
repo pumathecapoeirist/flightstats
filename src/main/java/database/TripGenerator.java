@@ -11,12 +11,11 @@ import database.City.CityType;
  * Genearates all necessary combinations of trips
  * 
  * @author puma
- *
+ * 
  */
 public class TripGenerator {
 
     private Vector<City> primaryCities = new Vector<City>();
-
 
     private Vector<City> secondaryCities = new Vector<City>();
     private Vector<Trip> trips = new Vector<Trip>();
@@ -41,12 +40,16 @@ public class TripGenerator {
 
     /**
      * Constructor with default values for the parameters
-     * @param departDateSpan If departDateSpan = 30, at max the depart date searched will be done on
-     * 30 days after today
-     * @param maxTripDateSpan If maxTripDateSpan = 10, at max the difference between the depart date
-     * and the return date searched will be 10 days
-     * @param minTripDateSpan If minTripDateSpan = 5, at max the difference between the depart date and
-     * the return date searched will be 5 days
+     * 
+     * @param departDateSpan
+     *            If departDateSpan = 30, at max the depart date searched will
+     *            be done on 30 days after today
+     * @param maxTripDateSpan
+     *            If maxTripDateSpan = 10, at max the difference between the
+     *            depart date and the return date searched will be 10 days
+     * @param minTripDateSpan
+     *            If minTripDateSpan = 5, at max the difference between the
+     *            depart date and the return date searched will be 5 days
      */
     public TripGenerator() {
 	super();
@@ -58,12 +61,16 @@ public class TripGenerator {
 
     /**
      * Constructor with default values for the parameters
-     * @param departDateSpan If departDateSpan = 30, at max the depart date searched will be done on
-     * 30 days after today
-     * @param maxTripDateSpan If maxTripDateSpan = 10, at max the difference between the depart date
-     * and the return date searched will be 10 days
-     * @param minTripDateSpan If minTripDateSpan = 5, at max the difference between the depart date and
-     * the return date searched will be 5 days
+     * 
+     * @param departDateSpan
+     *            If departDateSpan = 30, at max the depart date searched will
+     *            be done on 30 days after today
+     * @param maxTripDateSpan
+     *            If maxTripDateSpan = 10, at max the difference between the
+     *            depart date and the return date searched will be 10 days
+     * @param minTripDateSpan
+     *            If minTripDateSpan = 5, at max the difference between the
+     *            depart date and the return date searched will be 5 days
      */
     public TripGenerator(int departDateSpan, int maxTripDateSpan,
 	    int minTripDateSpan) {
@@ -98,7 +105,7 @@ public class TripGenerator {
 	}
 	return success;
     }
-    
+
     private boolean setSecondaryTrips() {
 	boolean success = false;
 	// Cannot compute primary trips if primary cities are not defined
@@ -108,7 +115,7 @@ public class TripGenerator {
 
 	for (City origin : primaryCities) {
 	    for (City destination : secondaryCities) {
-		    trips.addAll(generateTrips(origin, destination));
+		trips.addAll(generateTrips(origin, destination));
 	    }
 	}
 	return success;
@@ -128,27 +135,25 @@ public class TripGenerator {
 
 	// Loop 1 fix the depart date (within the 90 days span) and sweep the
 	// return date
+	GregorianCalendar departDate = new GregorianCalendar();
 	GregorianCalendar returnDate = new GregorianCalendar();
 	GregorianCalendar dateOfSearch = new GregorianCalendar();
-
-	System.out.println("start");
-	for (GregorianCalendar departDate = new GregorianCalendar(); departDate
+	System.out.println("start trips generation");
+	for (departDate.add(Calendar.DATE, 1); departDate
 		.compareTo(maxTripDepartDate) < 0; departDate.add(
 		Calendar.DATE, 1)) {
-	    System.out.println("departDate"+departDate.getTime());
-	    
+
 	    // Loop2 sweep the return date within trip span
 	    minTripReturnDate.setTime(departDate.getTime());
 	    minTripReturnDate.add(Calendar.DATE, minTripDateSpan);
-	    
+
 	    for (returnDate.setTime(minTripReturnDate.getTime()); returnDate
 		    .compareTo(maxTripReturnDate) < 0; returnDate.add(
 		    Calendar.DATE, 1)) {
 		Trip trip = new Trip(origin, destination, departDate.getTime(),
 			returnDate.getTime(), dateOfSearch.getTime());
-		System.out.println(trip);
 		c.add(trip);
-		
+
 	    }
 	}
 	return c;
@@ -180,8 +185,8 @@ public class TripGenerator {
 	secondaryCities
 		.add(new City("Prague", "PRG", CityType.SECONDARY, 3702));
 	primaryCities.add(new City("Moscow", "MOW", CityType.PRIMARY, 3695));
-	secondaryCities.add(new City("Beijing", "PEK", CityType.SECONDARY,
-		3593));
+	secondaryCities
+		.add(new City("Beijing", "PEK", CityType.SECONDARY, 3593));
 	secondaryCities
 		.add(new City("Vienna", "VIE", CityType.SECONDARY, 3339));
 	secondaryCities
@@ -189,9 +194,9 @@ public class TripGenerator {
 	secondaryCities.add(new City("St.Petersburg ", "PIE",
 		CityType.SECONDARY, 3200));
     }
-    
-    Vector<Trip> getTrips(){
+
+    Vector<Trip> getTrips() {
 	return trips;
     }
-    
+
 }

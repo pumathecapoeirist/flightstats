@@ -21,16 +21,23 @@ public class Main {
 	FligthDatabase fligthDatabase = FlightDatabaseFactory
 		.makeH2FlightDatabase();
 	fligthDatabase.open();
-
-	int index = 10;
-	Trip trip = fligthDatabase.getTripAt(index);
-	System.out.println("Trip:" + trip);
 	SearchFactorySingleton searchFactory = SearchFactorySingleton
 		.getInstance();
-	/*Convert to a short integer */
-	short minPrice = (short) searchFactory.launch(trip);
 
-	trip.setMinPrice(minPrice);
+	for (int index = 0; index < fligthDatabase.tripsSize(); index++) {
+
+	    Trip trip = fligthDatabase.getTripAt(index);
+	    System.out.println("Trip:" + trip);
+	    /* Convert to a short integer */
+	    short minPrice = (short) searchFactory.launch(trip);
+
+	    trip.setMinPrice(minPrice);
+
+	    // Persist the value found
+	    fligthDatabase.persistTrip(trip);
+	    long end = System.currentTimeMillis()+1000;
+	    while(System.currentTimeMillis()<end);
+	}
 	// Close the browser
 	searchFactory.closeAllWebPages();
     }

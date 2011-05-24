@@ -79,6 +79,7 @@ public class BingSearchFlightsPage extends SearchFlightPage {
 	// Now submit the form. WebDriver will find the form for us from the
 	// element
 	element.click();
+	element.click();
 
 	// Check the title of the page
 	System.out.println("Submitting page");
